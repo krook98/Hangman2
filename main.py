@@ -1,4 +1,5 @@
 import random
+import os
 from words import word_list
 from art import logo
 from art import stages
@@ -9,21 +10,22 @@ chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
 lives = 6
 end_of_game = False
-
-
-#Testing code
-print(f'Pssst, the solution is {chosen_word}.')
-
 display = []
+guessed = []
+
 for letter in chosen_word:
     display.append("_")
 print(display)
 
-
 while not end_of_game:
     guess = input("Please guess the letter").lower()
-    if guess in display:
+    clean = lambda: os.system('cls')
+    clean()
+    if guess in guessed:
         print(f"You've already guessed {guess}")
+        continue
+    else:
+        guessed += guess
     for position in range(len(chosen_word)):
         letter = chosen_word[position]
         if letter == guess:
@@ -38,6 +40,4 @@ while not end_of_game:
         end_of_game = True
         print("You win.")
 
-
     print(display)
-
